@@ -1,4 +1,3 @@
-[script.js](https://github.com/user-attachments/files/24367548/script.js)
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ===== УТИЛИТЫ ДЛЯ МОДАЛОК ===== */
