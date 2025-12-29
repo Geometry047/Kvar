@@ -1,0 +1,175 @@
+[mortgage.html](https://github.com/user-attachments/files/24367564/mortgage.html)
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>КвартАгент</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- ШАПКА: ЛОГОТИП, ВАШ ГОРОД, МЕНЮ, ЛУПА, ЗАКАЗАТЬ ЗВОНОК -->
+<header class="site-header">
+    <div class="container header__inner">
+
+        <!-- ЛОГОТИП СЛЕВА (остается как есть) -->
+        <a href="index.html" class="logo" aria-label="КвартАгент"></a>
+
+        <!-- НОВЫЙ БЛОК: город + меню + лупа + телефон -->
+        <div class="header__menu-row">
+            <button type="button" class="btn btn--city" id="city-button">
+                Ваш город
+            </button>
+
+            <nav class="main-nav">
+                <a href="index.html" class="nav__link">Главная</a>
+                <a href="catalog.html" class="nav__link">Каталог квартир</a>
+                <a href="mortgage.html" class="nav__link">Ипотечный калькулятор</a>
+                <a href="about.html" class="nav__link">О нас</a>
+                <a href="contacts.html" class="nav__link">Контакты</a>
+            </nav>
+
+            <button type="button"
+                    class="search-button"
+                    id="search-button"
+                    aria-label="Поиск по сайту">
+                <img src="img/search.png" alt="">
+            </button>
+
+            <span class="header__phone-text"> +7 (989) 728-00-80</span>
+        </div>
+
+    </div>
+</header>
+
+
+<main>
+
+ <section class="hero hero--mortgage">
+    <video class="hero__video" autoplay muted loop playsinline>
+        <source src="ipot/ipot.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+
+    <div class="hero__overlay">
+        <div class="container hero__content">
+            <div class="hero-mortgage-text">
+                <h1 class="hero__title">Расчёт стоимости ипотеки</h1>
+                <p class="hero__subtitle">
+                    Новое жильё уже совсем рядом!<br>
+                </p>
+            </div>
+
+            <div class="mortgage-calculator">
+        <form id="mortgage-form" class="mortgage-calculator__form">
+            <div class="mortgage-calculator__grid">
+                <label>
+                    Стоимость квартиры, ₽
+                    <input type="number" id="mortgage-price" min="0" step="10000" required placeholder="Например, 6 000 000">
+                </label>
+
+                <label>
+                    Первоначальный взнос, ₽
+                    <input type="number" id="mortgage-downpayment" min="0" step="10000" required placeholder="Например, 1 500 000">
+                </label>
+
+                <label>
+                    Срок кредита, лет
+                    <input type="number" id="mortgage-years" min="1" max="40" step="1" required placeholder="Например, 20">
+                </label>
+
+                <label>
+                    Процентная ставка, % годовых
+                    <input type="number" id="mortgage-rate" min="0" step="0.1" required placeholder="Например, 10.5">
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn--city mortgage-calculator__submit">
+                Рассчитать платёж
+            </button>
+
+            <p class="mortgage-calculator__note">
+                * Расчёт, выполненный с помощью данного калькулятора, является ориентировочным
+            и не является предложением банка или публичной офертой.<br>
+            Точные условия кредита уточняйте в банке.
+            </p>
+        </form>
+    </div>
+        </div>
+
+        <!-- НИЖНИЙ БЛОК "РЕЗУЛЬТАТЫ РАСЧЁТА" ПОВЕРХ ВИДЕО -->
+        <div class="mortgage-results-panel">
+            <div class="mortgage-calculator__results" id="mortgage-results">
+                <h2>Результаты расчёта</h2>
+                <p><strong>Сумма кредита:</strong> <span id="mortgage-loan-amount">—</span></p>
+                <p><strong>Ежемесячный платёж:</strong> <span id="mortgage-monthly">—</span></p>
+                <p><strong>Сумма процентов (переплата):</strong> <span id="mortgage-overpayment">—</span></p>
+                <p><strong>Общая сумма выплат:</strong> <span id="mortgage-total">—</span></p>
+            </div>
+        </div>
+        <!-- /НИЖНИЙ БЛОК "РЕЗУЛЬТАТЫ РАСЧЁТА" -->
+    </div>
+</section>
+
+</main>
+
+<!-- ПОДВАЛ -->
+<footer class="site-footer">
+    <div class="container footer__inner">
+        <p>© 2025 «КвартАгент». Все права защищены.</p>
+        <p>ИНН / ОГРН / +7 (989) 728-00-80</p>
+    </div>
+</footer>
+
+<!-- МОДАЛЬНОЕ ОКНО ВЫБОРА ГОРОДА -->
+<div class="modal-overlay" id="city-modal" hidden>
+    <div class="modal">
+        <button type="button" class="modal__close" data-close-modal>&times;</button>
+        <h2>Выберите ваш город</h2>
+        <input type="text" id="city-input" class="modal__input" placeholder="Начните вводить название города">
+        <ul id="city-list" class="modal__list">
+            <!-- Список городов подставит JS -->
+        </ul>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО ПОИСКА (БЕЛЫЙ ФОН) -->
+<div class="modal-overlay modal-overlay--light" id="search-modal" hidden>
+    <div class="modal">
+        <button type="button" class="modal__close" data-close-modal>&times;</button>
+        <h2>Поиск по сайту</h2>
+        <form id="search-form">
+            <input type="text" id="search-input" class="modal__input" placeholder="Что вы ищете?">
+        </form>
+        <div id="search-results" class="modal__results">
+            <!-- Результаты поиска подставит JS -->
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО "ЗАКАЗАТЬ ЗВОНОК" -->
+<div class="modal-overlay" id="callback-modal" hidden>
+    <div class="modal">
+        <button type="button" class="modal__close" data-close-modal>&times;</button>
+        <h2>Заказать звонок</h2>
+        <form id="callback-form">
+            <label class="modal__label">
+                Имя
+                <input type="text" name="name" class="modal__input" required>
+            </label>
+            <label class="modal__label">
+                Телефон
+                <input type="tel" name="phone" class="modal__input" required>
+            </label>
+            <button type="submit" class="btn btn--yellow modal__submit">Отправить</button>
+        </form>
+        <p id="callback-message" class="modal__message" hidden>
+            В течение 30 минут менеджер с Вами свяжется.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>
