@@ -1,0 +1,954 @@
+[styles.css](https://github.com/user-attachments/files/24367538/styles.css)
+/* БАЗА */
+
+/* Сброс боксовой модели */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Подключение шрифта */
+@font-face {
+    font-family: 'Elastre';
+    src: url('fonts/Elastre.ttf') format('truetype');  /*  consolation-mono-c  */
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Вся страница = высота окна, без скролла */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;           /* НЕТ вертикальной прокрутки */
+}
+
+/* Базовые стили body */
+body {
+    font-family: 'Elastre';
+    color: #f5f5f5;             /* светлый текст */
+    background: #353C40;        /* антрацитовый фон */
+    display: flex;
+    flex-direction: column;     /* шапка + main + подвал */
+}
+
+/* Основная часть между шапкой и подвалом */
+main {
+    flex: 1 0 auto;             /* занимает всё оставшееся место */
+    display: flex;
+    flex-direction: column;     /* внутри: hero + нижний блок */
+    overflow: hidden;
+}
+
+/* Подвал всегда снизу */
+.site-footer {
+    flex-shrink: 0;
+}
+
+/* Глобальные базовые элементы */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+/* Переопределяем фон шапки */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #353C40; /* антрацит */
+    border-bottom: 1px solid #000;
+}
+
+.header__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    min-height: 70px;   /* чтобы логотип влез по высоте */
+}
+
+/* ВЕРХНЯЯ ЛИНИЯ: ЛОГОТИП + КНОПКИ */
+.header__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;  /* логотип слева, кнопка справа */
+    gap: 16px;
+}
+
+.header__top-buttons {
+    display: flex;
+    align-items: center;
+}
+
+ /* ЛОГОТИП — ФОНОВАЯ КАРТИНКА В ШАПКЕ */
+ .logo {
+     position: absolute;
+     left: -710px;               /* отступ от левого края шапки (подгони по вкусу) */
+     top: 212%;                 /* по вертикали по центру шапки */
+     transform: translateY(-50%);
+     display: block;
+     width:712px;             /* реальная ширина логотипа (можешь подправить) */
+     height: 245px;            /* реальная высота логотипа */
+     background: url("img/logo.png") left center / contain no-repeat;
+     text-decoration: none;
+     pointer-events: none;      /* КЛЮЧЕВАЯ СТРОКА: логотип НЕ перехватывает мышь */
+ }
+
+/* НИЖНЯЯ ЛИНИЯ: МЕНЮ + ЛУПА В ОДНУ СТРОКУ */
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    margin-left: 50px;  /* расстояние от "Ваш город" до "Главная" */
+}
+
+/* ПУНКТЫ МЕНЮ: КНОПКИ-ССЫЛКИ */
+.nav__link {
+    display: inline-flex;
+    align-items: center;
+    letter-spacing: 0.07em;   /* расстояние между буквами */
+
+    /* РАЗМЕР КНОПКИ */
+    padding: 4px 40px;        /* 4px сверху/снизу, 18px слева/справа */
+
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 0;
+    background: transparent;
+
+    /* ВЕРТИКАЛЬНАЯ ЛИНИЯ СЛЕВА */
+    border-left: 1px solid #000000;
+
+    /* ПРОМЕЖУТОК МЕЖДУ КНОПКАМИ */
+    margin-right: 1px;        /* расстояние между полосами */
+    white-space: nowrap;   /* запретить перенос строк внутри пункта меню */
+    
+    /* плавные переходы для эффектов */
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease,
+        transform 0.15s ease,
+        border-radius 0.15s ease;
+    transform-origin: center;
+}
+
+
+/* У последней кнопки ("Контакты") добавляем полосу справа */
+.main-nav .nav__link:last-of-type {
+    border-right: 1px solid #000000;
+    margin-right: 0;          /* после неё зазор не нужен */
+}
+
+/* ХОВЕР: фон жёлтый, текст антрацит */
+.nav__link:hover {
+    background: #ffee05;   /* жёлтый фон */
+    color: #353C40;        /* тёмный текст */
+    border-radius: 6px;    /* скругляем углы при наведении */
+    transform: scale(1.05); /* лёгкое увеличение */
+}
+
+/* ---------- КНОПКИ (НОВЫЙ ЦВЕТ И РАЗМЕР) ---------- */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 70px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Elastre', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.07em;   /* расстояние между буквами */
+    
+}
+
+.btn--city {
+    background: #ffee05;  /* жёлтый */
+    color: #353C40;       /* антрацитовый текст */
+    border-radius: 4px;   /* лёгкое скругление */
+    text-shadow: none;
+    -webkit-text-stroke: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    min-width: 100px;      /* жёстная ширина кнопки (можно подправить) */
+    white-space: nowrap;   /* запретить перенос строк внутри текста */
+    overflow: hidden;      /* на всякий случай, чтобы текст не вылазил наружу */
+}
+
+.btn--city:hover {
+    background: #0bf559;
+}
+
+/* ---------- ЛУПА (ИКОНКА ПОИСКА) ---------- */
+
+/* КНОПКА ПОИСКА (ЛУПА) */
+
+/* КНОПКА ПОИСКА (ЛУПА) */
+
+.search-button {
+    margin-left: 8px;
+    border: none;
+    background-color: #353C40;  /* тот же цвет, что у шапки */
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;   /* размер кнопки */
+    height: 35px;
+    cursor: pointer;
+}
+
+/* сама иконка */
+.search-button img {
+    width: 26px;   /* размер иконки внутри */
+    height: 25px;
+    /* ВАЖНО: БЕЗ filter: grayscale(100%) */
+    filter: none;
+    transition: transform 0.15s ease;
+}
+
+/* эффект увеличения при наведении */
+.search-button:hover img {
+    transform: scale(1.1);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+main {
+    min-height: 60px;
+}
+
+/* ЖЁЛТЫЕ КНОПКИ: БЕЛЫЙ ЖИРНЫЙ ТЕКСТ, ТЁМНЫЙ КОНТУР, ЛЁГКАЯ ТЕНЬ */
+
+.header__city-btn {
+    margin-left: 16px;
+}
+
+.header__callback-btn {
+    margin-left: auto;
+}
+
+/* ПЕРВЫЙ ЭКРАН: ВИДЕО-ФОН */
+.hero {
+    position: relative;
+    flex: 3 0;     /* занимает максимум доступной высоты в main */
+    min-height: 0;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero__overlay {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.55),
+        rgba(0,0,0,0.65)
+    );
+    padding: 11px 0 11px;
+}
+
+.hero__content {
+    max-width: 11200px;
+    margin: 20px auto 0;   /* 20px сверху, авто по бокам, 0 снизу */
+    text-align: center;   /* выравниваем заголовок и текст по центру */
+}
+
+.hero__title {
+    font-size: 38px;
+    margin: 0 0 47px;
+    white-space: nowrap;   /* как мы уже делали, чтобы не было переноса */
+    text-align: center;
+    letter-spacing: 0.07em;   /* расстояние между буквами */
+}
+
+.hero__subtitle {
+    margin: 0 0 0px;  /* Затемненная область (высота) */
+    font-size: 22px;
+    color: #e5e7eb;
+    letter-spacing: 0.07em;   /* расстояние между буквами */
+}
+
+/* === КАЛЬКУЛЯТОР ИПОТЕКИ (страница mortgage.html) === */
+
+/* === КАЛЬКУЛЯТОР ИПОТЕКИ (mortgage.html) === */
+
+/* ОБЩЕЕ ОКНО калькулятора */
+/* === КАЛЬКУЛЯТОР ИПОТЕКИ (окно ввода) === */
+
+.mortgage-calculator {
+    /* ШИРИНА окна:
+       - max-width: максимально возможная ширина;
+       - width: 100% значит, что на узких экранах окно будет сжиматься,
+         но на широких не превысит max-width.
+       Меняешь ТОЛЬКО max-width, и окно всегда будет по центру. */
+    max-width: 800px;        /* поменяешь на 700 / 900 и т.п. – окно останется по центру */
+    width: 100%;
+
+    /* Положение ПО ВЕРТИКАЛИ относительно заголовка и подзаголовка */
+    margin-top: 24px;        /* расстояние сверху от подзаголовка до калькулятора */
+
+    /* Положение ПО ГОРИЗОНТАЛИ:
+       так как .hero__content уже align-items:center,
+       ДОПОЛНИТЕЛЬНЫЕ margin-left/right не нужны. */
+
+    /* Внутренние отступы от рамки окна до полей */
+    padding: 24px 24px;
+
+    /* Внешний вид окна */
+    background: rgba(0, 0, 0, 0.70);
+    border-radius: 18px;
+    text-align: center;
+}
+
+/* сам <form> – просто контейнер внутри окна */
+.mortgage-calculator__form {
+    margin-bottom: 10px;       /* расстояние от формы до подписи "* Расчёт..." */
+}
+
+/* СЕТКА для полей */
+.mortgage-calculator__grid {
+    display: grid;
+
+    /*
+        КОЛИЧЕСТВО И ШИРИНА КОЛОНОК:
+        2 колонки одинаковой ширины.
+        Можно сделать, например, 60% / 40%:
+        grid-template-columns: 3fr 2fr;
+    */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    /* РАССТОЯНИЕ между ПОЛЯМИ */
+    column-gap: 20px;          /* расстояние между колонками */
+    row-gap: 30px;             /* расстояние между строками */
+}
+
+/* Общие стили для ПОДПИСЕЙ и ПОЛЕЙ */
+.mortgage-calculator__grid label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+/* Общий размер ПОЛЯ ввода */
+.mortgage-calculator__grid input {
+    margin-top: 4px;           /* расстояние от подписи до поля */
+    border-radius: 8px;        /* скругление углов поля */
+    border: 1px solid #d1d5db;
+    padding: 6px 8px;          /* ВЫСОТА и «толщина» поля: чем больше padding, тем выше поле */
+    font-size: 14px;           /* размер шрифта в поле */
+    outline: none;
+    box-sizing: border-box;    /* чтобы padding не ломал ширину */
+}
+
+/* Вид поля при ФОКУСЕ (когда курсор в поле) */
+.mortgage-calculator__grid input:focus {
+    border-color: #ffee05;
+    box-shadow: 0 0 0 1px rgba(251, 238, 5, 0.5);
+}
+
+/* КНОПКА "Рассчитать платёж" */
+.mortgage-calculator__submit {
+    margin-top: 12px;          /* расстояние от полей до кнопки */
+}
+
+/* Подпись под кнопкой */
+.mortgage-calculator__note {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #d1d5db;
+}
+
+/* Блок результатов (в hero или внизу, в зависимости от твоего HTML) */
+
+/* Конец блока калькулятора */
+
+.hero__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* СЕКЦИИ */
+
+.section {
+    margin: 0;              /* на всякий случай обнуляем внешние отступы */
+    padding: 32px 0 40px;   /* высота области "Выберите раздел */
+    background: #353C40;    /* как цвет шапки */
+}
+.section--image-bg {
+    position: relative;
+    background-image: url("img/bg.jpg"); /* ЗЕЛЁНЫЙ П: фон-картинка — замените путь */
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+}
+
+.section__overlay {
+    background: rgba(0,0,0,0.45);
+    padding: 48px 0;
+}
+
+.section h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 24px;
+    
+}
+
+/* ===== СТАРЫЕ СТИЛИ ДЛЯ КАРТОЧЕК — НЕ ИСПОЛЬЗУЕМ
+.cards-grid { ... }
+.service-card { ... }
+.service-card__image img { ... }
+.service-card:hover { ... }
+.service-card:hover img { ... }
+.service-card__content { ... }
+.service-card__title { ... }
+===== КОНЕЦ СТАРОГО БЛОКА */
+
+/* ПОДВАЛ */
+
+.site-footer {
+    background: rgba(0, 0, 0, 0.45);
+    color: #9ca3af;
+    font-size: 12px;
+    padding: 14px 0;
+    margin: 0;
+    /* position здесь НЕ нужен, т.к. body flex + main flex + footer flex-shrink:0
+       уже прижали подвал к низу */
+}
+
+.footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+/* МОДАЛЬНЫЕ ОКНА (ГОРОД, ПОИСК, ЗВОНОК) */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-overlay--light {
+    background: rgba(255,255,255,0.95); /* почти белый фон для поиска */
+}
+
+.modal {
+    background: #ffffff;
+    border-radius: 10px;
+    max-width: 420px;
+    width: 100%;
+    padding: 20px 18px 18px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(15,23,42,0.4);
+}
+
+.modal__close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.modal h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 20px;
+}
+
+.modal__label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.modal__input {
+    width: 100%;
+    margin-top: 4px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    outline: none;
+}
+
+.modal__input:focus {
+    border-color: #ffee05;
+    box-shadow: 0 0 0 1px rgba(251,191,36,0.4);
+}
+
+.modal__submit {
+    margin-top: 6px;
+    width: 100%;
+}
+
+.modal__message {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #16a34a;
+}
+
+/* Список городов в модалке "Ваш город" */
+
+.modal__list {
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+    max-height: 250px;
+    overflow-y: auto;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.modal__list-item {
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #111827;          /* цвет текста городов – тёмный */
+}
+
+/* цвет при наведении */
+.modal__list-item:hover {
+    background: #ffee05;
+    color: #000000;          /* можно оставить тем же #111827 */
+}
+
+/* "Город не найден" – оставляем более светлым */
+.modal__list-item--empty {
+    color: #6b7280;
+    cursor: default;
+}
+
+.modal__list-item:hover {
+    background: #ffee05;
+}
+
+.modal__list-item--empty {
+    color: #6b7280;
+    cursor: default;
+}
+
+/* Результаты поиска */
+
+.modal__results {
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+.modal__results-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.modal__results-list li + li {
+    margin-top: 6px;
+}
+
+.modal__results-list a {
+    color: #2563eb;
+}
+
+/* СКРЫТИЕ МОДАЛОК */
+
+[hidden] {
+    display: none !important;
+}
+
+/* БЛОКИРОВКА СКРОЛЛА ПРИ ОТКРЫТОМ МОДАЛЬНОМ ОКНЕ */
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* Телефон в шапке */
+.header__phone-text {
+    margin-left: 160px;
+    color: #ffffff;
+    font-size: 15px;
+    white-space: nowrap;
+    letter-spacing: 0.07em;   /* расстояние между буквами */
+}
+
+/* Блок: "Ваш город" + меню + лупа + телефон */
+.header__menu-row {
+    display: flex;
+    align-items: center;
+    margin-left: -215px;
+}
+
+/* ---- Нижний блок под видео: "О компании" + карточки ---- */
+
+/* НИЖНЯЯ СЕКЦИЯ ПОД ВИДЕО (О КОМПАНИИ + КНОПКИ) */
+.section--bottom {
+    flex: 0 0 260px;           /* высота нижней области (меняй по вкусу) */
+    padding: 15px 0 15px;
+    background: #353C40;
+}
+
+/* КОНТЕЙНЕР НИЖНЕГО БЛОКА */
+.bottom-row {
+    width: 100%;
+    margin: 0;
+    padding: 0 24px;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 24px;                 /* расстояние между кнопками и блоком "О компании" */
+}
+
+/* === НИЖНИЕ КНОПКИ-КАРТОЧКИ (ипотека + каталог) === */
+
+/* Ряд из двух кнопок слева */
+.bottom-row__cards {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;                 /* расстояние между двумя кнопками */
+    align-items: flex-end;
+}
+
+/* САМА КНОПКА */
+.bottom-card {
+    position: relative;        /* для вложенных абсолютно позиционированных элементов */
+    width: 260px;              /* одинаковая ширина */
+    min-height: 308px;         /* минимальная высота */
+    height: 100%;              /* растягивается по высоте колонки */
+    border-radius: 18px;       /* скругление самой карточки */
+    overflow: hidden;
+    /* фон карточки = фон секции, чтобы не было светлых «ореолов» */
+    background: #353C40;
+    box-shadow: 0 4px 10px rgba(15,23,42,0.12);
+    text-decoration: none;
+    color: #111827;
+    display: block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Картинка занимает ВСЮ карточку и имеет те же скругления */
+.bottom-card__image {
+    position: absolute;
+    inset: 0;                  /* top:0; right:0; bottom:0; left:0 */
+}
+
+.bottom-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);   /* по умолчанию ч/б */
+    transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+/* Подпись внизу, поверх картинки */
+.bottom-card__text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.35);
+    text-align: center;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+/* HOVER: наведение на ЛЮБУЮ ЧАСТЬ карточки */
+.bottom-card:hover .bottom-card__image img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+.bottom-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(15,23,42,0.35);
+}
+
+/* ПРАВАЯ ЧАСТЬ: БЛОК "О КОМПАНИИ" */
+.bottom-row__about {
+    flex: 1 1 auto;
+    min-width: 0;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 57px 32px;
+    border-radius: 18px;
+}
+
+.bottom-row__about h2 {
+    margin: 0 0 30px;
+}
+
+.bottom-row__about p {
+    margin:10;
+    font-size: 18px;
+    line-height: 35px;
+    letter-spacing: 0.07em;   /* расстояние между буквами */
+    font-family: 'Bounded-Regular';
+    src: url('Bounded-Regular.ttf') format('truetype');  /* Elastre, consolation-mono-c  */
+    font-size: 25px;        /* ⇐ размер шрифта подписи */
+    letter-spacing: 0.03em;   /* расстояние между буквами */
+}
+
+/* Можно дополнительно чуть уменьшить отступ между заголовком и подзаголовком */
+.hero--mortgage .hero__title {
+    margin-bottom: 18px;   /* было 47px → уменьшили расстояние между h1 и подзаголовком */
+}
+
+.hero--mortgage .hero__subtitle {
+    line-height: 1.3;      /* межстрочный интервал в подзаголовке */
+}
+
+/* === Специальный нижний блок для mortgage.html === */
+
+/* === Антрацит внизу между видео и подвалом === */
+/* Делаем нижнюю секцию чуть меньше по высоте, если нужно 
+.section--bottom-mortgage {
+    flex: 0 0 auto;
+    padding: px 0 24px;
+
+    /* делаем фон секции прозрачным – останется только фон у самого блока результатов 
+    background: transparent;
+}
+
+
+/* Центрируем тёмный блок по горизонтали 
+.bottom-row--mortgage {
+    justify-content: center;  /* один блок по центру 
+}
+
+/* Сам тёмный блок "результаты расчёта" внизу 
+.bottom-row__about-mortgage {
+    max-width: 900px;         /* ширина тёмного блока 
+    width: 100%;
+}
+/* === ИПОТЕЧНЫЙ КАЛЬКУЛЯТОР (страница mortgage.html) === */
+
+/* ВСЕ РАЗМЕРЫ ПОЛЯ ВВОДА */
+
+/* HERO overlay на ипотеке уже position: relative; (из общего стиля hero__overlay),
+   поэтому можем позиционировать блок результатов относительно него */
+
+/* Контейнер с блоком "Результаты расчёта" в hero ипотеки */
+.hero--mortgage .mortgage-results-panel {
+    position: absolute;
+
+    /* ПОЛОЖЕНИЕ БЛОКА ПО ВЕРТИКАЛИ */
+    bottom: -740px;              /* ← расстояние от нижнего края видео до блока результатов */
+
+    /* ПОЛОЖЕНИЕ ПО ГОРИЗОНТАЛИ – по центру */
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Чтобы содержимое не "липло" к краям */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;      /* события мыши проходят только в сам блок результатов */
+}
+
+/* Сам тёмный блок "Результаты расчёта" */
+.hero--mortgage .mortgage-calculator__results {
+    max-width: 900px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 32px 32px;
+    border-radius: 18px;
+    pointer-events: auto;      /* внутри блока можно кликать, выделять текст и т.д. */
+}
+
+ /* Новый вариант калькулятора ============================== */
+
+/* ==== HERO на странице "Ипотечный расчёт" ==== */
+
+/* Делаем hero на ипотеке заполняющим всё доступное место между шапкой и подвалом */
+.hero.hero--mortgage {
+    flex: 1 0 auto;          /* герой занимает всю высоту main */
+    position: relative;
+}
+
+/* Затемнение поверх видео: растягиваем слой от верха hero до низа hero */
+.hero--mortgage .hero__overlay {
+    position: absolute;
+    inset: 0;                /* top:0; right:0; bottom:0; left:0 */
+    z-index: 2;
+    /* используется тот же background, что задан в общем .hero__overlay */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;   /* содержимое сверху, но внутри overlay */
+    padding-top: 100px;           /* ОТСТУП СВЕРХУ для текста и калькулятора */
+    padding-bottom: 160px;        /* ОТСТУП СНИЗУ, чтобы не наезжать на блок результатов */
+}
+
+/* Контейнер содержимого в hero ипотеки */
+.hero--mortgage .hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;         /* центрируем текст и калькулятор по горизонтали */
+}
+
+/* Блок с заголовком и подзаголовком */
+.hero-mortgage-text {
+    margin-top: 0;               /* при необходимости можно чуть поднять/опустить */
+    margin-bottom: 24px;         /* расстояние от текста до калькулятора */
+    text-align: center;
+    position: relative;
+    top: -32px;             /* подбери значение: -20, -30, -50 и т.п. */
+}
+
+/* Отступ между заголовком и подзаголовком */
+.hero--mortgage .hero__title {
+    margin-bottom: 40px;
+}
+
+/* Межстрочный интервал подзаголовка */
+.hero--mortgage .hero__subtitle {
+    line-height: 1.3;
+}
+
+/* ==== ИПОТЕЧНЫЙ КАЛЬКУЛЯТОР В HERO ==== */
+
+/* Общее окно калькулятора (тёмный прямоугольник по центру) */
+.hero--mortgage .mortgage-calculator {
+    max-width: 1200px;           /* ⇐ ШИРИНА окна; меняй 700–1200 по вкусу */
+    width: 100%;
+    margin: 0 auto;             /* по центру по горизонтали */
+    padding: -250px 100px;         /* внутренние отступы окна */
+
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 16px;
+    text-align: left;
+}
+
+/* Сетка полей внутри окна */
+.hero--mortgage .mortgage-calculator__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));  /* 2 равные колонки */
+    column-gap: 24px;          /* расстояние между колонками */
+    row-gap: 24px;             /* расстояние между строками */
+}
+
+/* Подписи к полям */
+.hero--mortgage .mortgage-calculator__grid label {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Elastre';    /* или твой шрифт, если задан в @font-face */
+    font-size: 18px;           /* размер текста подписи */
+    letter-spacing: 0.04em;
+}
+
+/* ПОЛЯ ВВОДА */
+.hero--mortgage .mortgage-calculator__grid input {
+    box-sizing: border-box;
+    height: 52px;              /* фиксированная ВЫСОТА ячейки */
+    padding: 0 20px;           /* слева/справа отступ, вертикальный = 0 */
+    margin-top: 12px;          /* расстояние от подписи (label) до поля */
+    font-size: 20px;           /* размер шрифта ВНУТРИ поля */
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    outline: none;
+}
+
+/* Состояние поля при фокусе */
+.hero--mortgage .mortgage-calculator__grid input:focus {
+    border-color: #ffee05;
+    box-shadow: 0 0 0 3px #ffee05;
+}
+
+/* КНОПКА "Рассчитать платёж" – по центру */
+.hero--mortgage .mortgage-calculator__submit {
+    display: block;
+    width: 380px;              /* ⇐ ШИРИНА кнопки */
+    max-width: 100%;
+    margin: 24px auto 0;       /* auto слева/справа = по центру */
+    padding: 12px 24px;        /* высота кнопки */
+    font-size: 18px;
+    border-radius: 8px;
+}
+
+/* Подпись под кнопкой */
+.hero--mortgage .mortgage-calculator__note {
+    margin-top: 14px;
+    font-family: 'Elastre';
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    color: #d1d5db;
+}
+
+/* ==== БЛОК "РЕЗУЛЬТАТЫ РАСЧЁТА" – ПОВЕРХ ВИДЕО, У НИЖНЕЙ ГРАНИ ==== */
+
+/* Контейнер результатов: фиксируем по низу hero, по центру */
+.hero--mortgage .mortgage-results-panel {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;              /* ⇐ расстояние от нижнего края видео до блока результатов */
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;      /* этот слой не перехватывает мышь */
+}
+/* После расчёта: меняем шрифт только у значений */
+.mortgage-calculator__results--calculated span {
+    font-family: 'Bounded-Regular'; /* ← здесь укажи свой шрифт */
+    font-weight: 700;                      /* по желанию */
+    font-size: 27px;        /* ⇐ размер шрифта подписи */
+    letter-spacing: 0.05em;   /* расстояние между буквами */
+    color: #0bf559;             /* светлый текст */
+}
+
+/* Сам тёмный прямоугольник с результатами */
+.hero--mortgage .mortgage-calculator__results {
+    max-width: 900px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 32px 32px;
+    border-radius: 18px;
+    pointer-events: auto;      /* внутри можно выделять текст и т.п.*/
+}
