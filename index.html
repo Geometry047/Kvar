@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>КвартАгент</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- ШАПКА: ЛОГОТИП, ВАШ ГОРОД, МЕНЮ, ЛУПА, ЗАКАЗАТЬ ЗВОНОК -->
+<header class="site-header">
+    <div class="container header__inner">
+
+        <!-- ЛОГОТИП СЛЕВА (остается как есть) -->
+        <a href="index.html" class="logo" aria-label="КвартАгент"></a>
+
+        <!-- НОВЫЙ БЛОК: город + меню + лупа + телефон -->
+        <div class="header__menu-row">
+            <button type="button" class="btn btn--city" id="city-button">
+                Ваш город
+            </button>
+
+            <nav class="main-nav">
+                <a href="index.html" class="nav__link">Главная</a>
+                <a href="catalog.html" class="nav__link">Каталог квартир</a>
+                <a href="mortgage.html" class="nav__link">Ипотечный калькулятор</a>
+                <a href="about.html" class="nav__link">О нас</a>
+                <a href="contacts.html" class="nav__link">Контакты</a>
+            </nav>
+
+            <button type="button"
+                    class="search-button"
+                    id="search-button"
+                    aria-label="Поиск по сайту">
+                <img src="img/search.png" alt="">
+            </button>
+
+            <span class="header__phone-text"> +7 (989) 728-00-80</span>
+        </div>
+
+    </div>
+</header>
+
+
+<main>
+
+    <!-- ПЕРВЫЙ ЭКРАН: ВИДЕО-ФОН -->
+    <section class="hero">
+        <!-- Видео на заднем плане -->
+        <video class="hero__video" autoplay muted loop playsinline>
+            <!-- ЗАМЕНИ bg.mp4 на свой файл в папке /video при необходимости -->
+            <source src="video/bg.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+
+        <!-- Затемнённый слой поверх видео (заголовок + подзаголовок) -->
+        <div class="hero__overlay">
+            <div class="container hero__content">
+                <h1 class="hero__title">Квартиры в новостройках вашего города</h1>
+                <p class="hero__subtitle">
+                    Подбор квартир, выбор планировки и дизайн‑проекта,<br>
+                    расчёт ипотеки и полное сопровождение сделки.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- НИЖНИЙ БЛОК: СЛЕВА КНОПКИ, СПРАВА "О КОМПАНИИ" -->
+    <section class="section section--bottom">
+    <div class="bottom-row">
+
+        <!-- ЛЕВАЯ ЧАСТЬ: ДВЕ КНОПКИ-КАРТИНКИ -->
+        <div class="bottom-row__cards">
+
+    <!-- Кнопка 1: Ипотечный калькулятор -->
+    <a href="mortgage.html" class="bottom-card">
+        <div class="bottom-card__image">
+            <img src="img/btn-mortgage.png" alt="Ипотечный калькулятор">
+        </div>
+        <div class="bottom-card__text">
+            Ипотечный<br>калькулятор
+        </div>
+    </a>
+
+    <!-- Кнопка 2: Каталог квартир -->
+    <a href="catalog.html" class="bottom-card">
+        <div class="bottom-card__image">
+            <img src="img/btn-catalog.png" alt="Каталог квартир">
+        </div>
+        <div class="bottom-card__text">
+            Каталог<br>квартир
+        </div>
+    </a>
+
+        </div>
+
+        <!-- ПРАВАЯ ЧАСТЬ: БЛОК "О КОМПАНИИ" -->
+        <div class="bottom-row__about">
+            <h2>Почему стоит купить квартиру именно у нас?</h2>
+            <p>Мы предлагаем эксклюзивный подбор квартир от проверенных застройщиков с гарантией юридической чистоты и отсутствием скрытых платежей — риски минимизированы на 100%!
+            Цены ниже рыночных на 10–15% благодаря прямым контрактам с девелоперами, без посредников.
+            Персональный менеджер 24/7, возможность оформления ипотеки в короткий срок под низкий процент от ведущих банков и бонусы для покупателей — у нас вы получаете не просто квартиру, а идеальный дом мечты быстрее и выгоднее, чем где-либо ещё!</p>
+        </div>
+
+    </div>
+</section>
+
+</main>
+
+<!-- ПОДВАЛ -->
+<footer class="site-footer">
+    <div class="container footer__inner">
+        <p>© 2025 «КвартАгент». Все права защищены.</p>
+        <p>ИНН / ОГРН / +7 (989) 728-00-80</p>
+    </div>
+</footer>
+
+<!-- МОДАЛЬНОЕ ОКНО ВЫБОРА ГОРОДА -->
+<div class="modal-overlay" id="city-modal" hidden>
+    <div class="modal">
+        <button type="button" class="modal__close" data-close-modal>&times;</button>
+        <h2>Выберите ваш город</h2>
+        <input type="text" id="city-input" class="modal__input" placeholder="Начните вводить название города">
+        <ul id="city-list" class="modal__list">
+            <!-- Список городов подставит JS -->
+        </ul>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО ПОИСКА (БЕЛЫЙ ФОН) -->
+<div class="modal-overlay modal-overlay--light" id="search-modal" hidden>
+    <div class="modal">
+        <button type="button" class="modal__close" data-close-modal>&times;</button>
+        <h2>Поиск по сайту</h2>
+        <form id="search-form">
+            <input type="text" id="search-input" class="modal__input" placeholder="Что вы ищете?">
+        </form>
+        <div id="search-results" class="modal__results">
+            <!-- Результаты поиска подставит JS -->
+        </div>
+    </div>
+</div>
+
+</html>
